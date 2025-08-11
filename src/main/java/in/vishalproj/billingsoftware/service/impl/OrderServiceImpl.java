@@ -1,8 +1,11 @@
 package in.vishalproj.billingsoftware.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import in.vishalproj.billingsoftware.entity.OrderEntity;
@@ -11,6 +14,7 @@ import in.vishalproj.billingsoftware.io.OrderRequest;
 import in.vishalproj.billingsoftware.io.OrderResponse;
 import in.vishalproj.billingsoftware.io.PaymentDetails;
 import in.vishalproj.billingsoftware.io.PaymentMethod;
+import in.vishalproj.billingsoftware.io.PaymentVerificationRequest;
 import in.vishalproj.billingsoftware.repository.OrderEntityRepository;
 import in.vishalproj.billingsoftware.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -104,6 +108,51 @@ private final OrderEntityRepository orderEntityRepository;
             .stream()
             .map(this::convertToResponse)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderResponse verifyPayment(PaymentVerificationRequest request) {
+    OrderEntity existingOrder =orderEntityRepository.findByOrderId(request.getOrderId())
+            .orElseThrow(() -> new RuntimeException("Order not found"));
+
+            if(!verifyRazorpaySignature(request.getRazorpayOrderId(),
+                  request.getRazorpayPaymentId(),
+                  request.getRazorpaySignature())) {
+                     throw new RuntimeException("Payment verification failed");
+                  }
+
+                  PaymentDetails paymentDetails = existingOrder.getPaymentDetails();
+                  paymentDetails.setRazorpayOrderId(request.getRazorpayOrderId());
+                  paymentDetails.setRazorpayPaymentId(request.getRazorpayPaymentId());
+                  paymentDetails.setRazorpaySignature(request.getRazorpaySignature());
+                  paymentDetails.setStatus(PaymentDetails.PaymentStatus.COMPLETED);
+
+                  existingOrder= orderEntityRepository.save(existingOrder);
+                  return convertToResponse(existingOrder);
+
+    }
+
+    private boolean verifyRazorpaySignature(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature) {
+     return true;
+    }
+
+    @Override
+    public Double sumSalesByDate(LocalDate date) {
+      return orderEntityRepository.sumSalesByDate(date);
+    }
+
+    @Override
+    public Long countByOrdersDate(LocalDate date) {
+     return orderEntityRepository.countByOrdersDate(date);
+    }
+
+    @Override
+    public List<OrderResponse> findRecentOrders() {
+     return  orderEntityRepository.findRecentOrders(PageRequest.of(0,5))
+            .stream()
+            .map(orderEntity -> convertToResponse(orderEntity))
+            .collect(Collectors.toList());
+           
     } 
     
 }

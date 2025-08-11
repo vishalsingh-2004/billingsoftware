@@ -84,13 +84,14 @@ const ItemForm = () => {
                                           placeholder="Item Name"
                                           onChange={onChangeHandler}
                                           value={data.name}
+                                          require
                                    />
                                </div>
                                <div className="mb-3">
                                    <label htmlFor="category" className="form-label">
                                        Category
                                    </label>
-                                   <select className="form-control" id="category" name="categoryId" onChange={onChangeHandler} value={data.categoryId}>
+                                   <select className="form-control" id="category" name="categoryId" onChange={onChangeHandler} value={data.categoryId} required>
                                        <option value="">---SELECT CATEGORY---</option>
                                        {categories.map((category, index) => (
                                          <option key={index} value={category.categoryId}>{category.name}</option>
@@ -106,6 +107,7 @@ const ItemForm = () => {
                                           placeholder="&#8377;1000"
                                           onChange={onChangeHandler}
                                           value={data.price}
+                                          required
 
                                    />
 
