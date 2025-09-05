@@ -5,12 +5,14 @@ solution for managing products, categories, orders, and payments, with a focus o
 
 ## Screenshots
 
-| Dashboard | Order Creation | Payment | Receipt |
-| :---: | :---: | :---: | :---: |
-| ![Dashboard](https://github.com/user-attachments/assets/a676694c-cef2-4e5a-b8f8-4b3ef2a1c173) | 
-![Order Creation](https://github.com/user-attachments/assets/eb1cbf49-7342-459d-adb7-ed52d13abcdd) | 
-![Payment](https://github.com/user-attachments/assets/68af7289-51f6-4eb3-a1d3-628fe61eca3b) | 
-![Receipt](https://github.com/user-attachments/assets/85ce4e6f-7873-4f02-ac4a-1d136d68c358) |
+| Dashboard | Order Creation |
+| :---: | :---: |
+| ![Dashboard](https://github.com/user-attachments/assets/a676694c-cef2-4e5a-b8f8-4b3ef2a1c173) | ![Order Creation](https://github.com/user-attachments/assets/eb1cbf49-7342-459d-adb7-ed52d13abcdd) |
+
+| Payment | Receipt |
+| :---: | :---: |
+| ![Payment](https://github.com/user-attachments/assets/68af7289-51f6-4eb3-a1d3-628fe61eca3b) | ![Receipt](https://github.com/user-attachments/assets/85ce4e6f-7873-4f02-ac4a-1d136d68c358) |
+
 
 
 ## Key Features
